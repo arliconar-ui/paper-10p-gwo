@@ -31,7 +31,7 @@
 \newcommand{\rehap}{REHAP}
 \newcommand{\figw}{0.48\columnwidth}
 
-\title{Robust Tuning of a Backstepping Controller for a Two-DOF Lower-Limb Rehabilitation Robot: A Validation Protocol and an Equal-Budget Comparison of Metaheuristics}
+\title{Pitfalls and Benchmarking of Metaheuristic-Tuned Nonlinear Controllers in Robotic Systems: Equal-Budget Validation, Digital Limits, and Generalization}
 \author{J.~E.~Cervantes-Reyes\\
 \textit{Universidad Polit\'ecnica de Pachuca, Hidalgo, M\'exico}\\
 \texttt{cervantesreyesjesusedg16@gmail.com}}
@@ -171,13 +171,13 @@ J(\theta)={}&\mathrm{RMS}_1+\mathrm{RMS}_2\\
 \end{equation}
 where $\mathrm{RMS}_i$ is the true-position tracking error of joint $i$, $\tau^c$ is the torque commanded by~\eqref{eq:bs_tau} before voltage saturation (a proxy of gain aggressiveness, since voltage rather than torque limits the actuator), the overbar is the time average, $f_{sat}$ the fraction of steps with $|v_i|>0.99v_{\max}$, $\lambda_\tau=1$, $\lambda_{sat}=10$ (set after a smoke test, effect not studied). Divergent simulations receive $10^6$.
 
-\subsection{Parametric uncertainty and pulses}
+\subsection{Parametric uncertainty and neuromuscular disturbance pulses}
 The plant parameters $\vartheta_k\in\{m_1,m_2,l_{c1},l_{c2},I_1,I_2,f_{v1},f_{v2}\}$ are replaced by
 \begin{equation}
 \tilde\vartheta_k=\vartheta_k(1+\rho u_k),\qquad u_k\sim\mathcal U(-1,1),\quad \rho=0.15,
 \label{eq:uncertainty}
 \end{equation}
-while the controller keeps the nominal model. A pulse train is added to the measured position,
+which represents inter-subject morphological variations (e.g., limb mass and inertia differences in physical therapy), while the controller keeps the nominal model. In rehabilitation robotics, involuntary muscle contractions such as spasticity, tremors, or clonus introduce abrupt joint position perturbations. To reflect these effects during trajectory tracking, a pulse train is added to the measured position,
 \begin{equation}
 \begin{aligned}
 q^m(t)&=q(t)+p(t),\\
@@ -185,7 +185,7 @@ p(t)&=\begin{cases}A & t\ge t_0,\ (t-t_0)\bmod P<w\\0&\text{otherwise},\end{case
 \end{aligned}
 \label{eq:pulse}
 \end{equation}
-with $A=0.01$~rad, $P=2$~s, $w=0.05$~s, $t_0=1$~s (modeling choices; validation also uses $A=0.02$~rad, $P=2.5$~s, $w=0.1$~s, $t_0=0.5$~s). Each plant is deterministic given its seed.
+with $A=0.01$~rad, $P=2$~s, $w=0.05$~s, $t_0=1$~s (modeling choices; validation also uses an alternative, more aggressive spastic pattern: $A=0.02$~rad, $P=2.5$~s, $w=0.1$~s, $t_0=0.5$~s). Each plant is deterministic given its seed.
 
 \subsection{Optimization problem}\label{sec:probform}
 Three settings are used: (A) nominal plant without pulses; (B) one perturbed plant with pulses; (C) the mean of $J$ over five fixed perturbed plants,
@@ -351,7 +351,7 @@ PSO      & \textbf{0.0490 (0.017)} & \textbf{0.0420 (0.031)} & \textbf{1.17 ($1.
 
 Under tight budgets \mgwo{} equals GWO and \acor{}; its wins against PSO stem from PSO's heavy tail (S1 mean 34.7, driven by one run at 330.6). On benchmarks \mgwo{} equals GWO on Rastrigin, is worse than PSO, and is worse than every algorithm on Ackley, including its own base GWO. \mgwoa{} equals \mgwo{} on \rehap{} but is clearly better on the benchmarks (Rastrigin $2.98\to2.00$; Ackley $0.108\to0.0094$, matching GWO), while PSO/\acor{} remain better on Ackley. In the ablation S5 (500 evaluations, Supplementary~\S S4), no variant differs significantly from full \mgwo{} or GWO (medians 0.0395--0.0407, all $p\ge0.24$); removing local search gives the lowest median, not significantly.
 
-\subsection{Why the mechanisms did not help, and H$^\ast$}\label{sec:mech}\label{sec:hyp}
+\subsection{Why the mechanisms did not help, and Hypothesis H$^\ast$}\label{sec:mech}\label{sec:hyp}
 Activation counters (seed 10) show \mgwo{} completes 19 iterations at 500 evaluations (1 mutation, \emph{no} recovery, 18\% on local search) and 74 iterations at 2000 (13 mutations, no recovery, 18.5\% on local search). Recovery, needing five stagnant iterations, never fired. Because $T_{\max}$ ignores the extra evaluations spent by the mechanisms, \mgwo{} exhausts its budget before $t$ reaches $T_{\max}$: at the end of these runs $a\approx0.42$ and $0.51$ instead of $0$, leaving residual exploration consistent with its poor precision on Ackley.
 
 The evidence for H$^\ast$, circumstantial, is: (i) an escape mechanism was disabled by its threshold relative to the budget; (ii) the schedule of $a$ was inconsistent with the iterations performed, and the algorithm with more mechanisms was worse on Ackley than its own base; (iii) local search consumed $\approx$18\% of evaluations with no measurable benefit; (iv) an implementation detail (PSO bound handling) changed results more than the differences among optimizers; (v) unmodified canonical algorithms matched or exceeded \mgwo{} in most scenarios. \mgwoa{}, which corrects only (ii), supports H$^\ast$ for the schedule component on the benchmarks but not for the controller problem, where all optimizers already share the plateau and the remaining differences lie in the tail. This agrees in direction with work attributing GWO stagnation to the linear schedule of $a$ \cite{li2025} or reliance on three leaders \cite{adegboye2024}; our observation is complementary: budget dependence can silently disable a mechanism or leave $a$ at a wrong value. Thresholds (i), the local-search share (iii) and PSO bound handling (iv) remain untested; automatic configuration \cite{lopez2016} would need to be applied equally to all algorithms.
