@@ -1,0 +1,17 @@
+Validacion Bezier cubica, T = 5 s, Ts = 0.01 s
+Regresion (quintico, mGWO): max|q1_ref - q1_loc| = 0.000e+00 rad
+Initial [5,5,4,4]  RMSE=[2.347e-03 7.378e-03] max|v|=[21.39 1.38] demanda=[21.39 1.38] sat=0.00% ITSE=[4.982e-05 9.796e-04]
+mGWO (run 2)       RMSE=[1.144e-04 9.361e-05] max|v|=[21.39 1.37] demanda=[21.39 1.37] sat=0.00% ITSE=[1.116e-07 1.129e-07]
+GWO (run 19)       RMSE=[1.296e-04 9.006e-05] max|v|=[21.39 1.37] demanda=[21.39 1.37] sat=0.00% ITSE=[1.478e-07 9.671e-08]
+Regresion Jval (quintico vs protocolo_final): max|dif| = 0.000e+00
+Perturbadas, patron 1, Initial [5,5,4,4]  Bezier: mediana=0.5692 p90=1.2523 peor=3.5947 | quintico: mediana=0.6036 p90=1.3448 peor=1.8596 | sat=1.50%
+Perturbadas, patron 1, mGWO (run 2)       Bezier: mediana=0.0472 p90=1.8968 peor=1963.9141 | quintico: mediana=0.0260 p90=0.7198 peor=774.3795 | sat=5.45%
+Perturbadas, patron 1, GWO (run 19)       Bezier: mediana=0.0395 p90=1.8749 peor=1629.2162 | quintico: mediana=0.0262 p90=0.7115 peor=665.8640 | sat=5.38%
+Perturbadas, patron 2, Initial [5,5,4,4]  Bezier: mediana=0.5685 p90=1.2513 peor=3.6345 | quintico: mediana=0.6027 p90=1.3439 peor=1.8684 | sat=1.52%
+Perturbadas, patron 2, mGWO (run 2)       Bezier: mediana=0.0716 p90=2.0916 peor=1977.2332 | quintico: mediana=0.0479 p90=0.8076 peor=859.8525 | sat=6.03%
+Perturbadas, patron 2, GWO (run 19)       Bezier: mediana=0.0669 p90=2.0876 peor=1638.3767 | quintico: mediana=0.0460 p90=0.7960 peor=756.1867 | sat=5.99%
+mGWO - GWO, Bezier, patron 1, sobre 20 plantas: mediana dif=-2.1685e-05, mGWO mejor en 10 plantas, peor en 10
+Quintico: pico vel=[0.442 0.147] rad/s, pico acel=[0.136 0.045] rad/s^2
+Bezier:   pico vel=[0.495 0.165] rad/s, pico acel=[0.057 0.019] rad/s^2
+Bezier: vel inicial=[0.424 0.141], vel final=[0.424 0.141] rad/s
+Guardado en C:\Users\cerva\Desktop\paper gwo\src\experiments\..\..\results\data\bezier_validation

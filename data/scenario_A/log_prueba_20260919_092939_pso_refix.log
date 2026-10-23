@@ -1,0 +1,5 @@
+[2026-09-19 09:29:39] INICIO rerun_pso_fixed (bordes: clipping -> reflexion+inversion V)
+[2026-09-19 09:38:52] pso seed=1 OK J_best=4.26569e-06 nfe=2000/2000 t_cpu=551.96s
+[2026-09-19 09:44:56] pso seed=2 OK J_best=4.24044e-06 nfe=2000/2000 t_cpu=364.27s
+[2026-09-19 09:46:41] pso seed=3 OK J_best=4.24499e-06 nfe=2000/2000 t_cpu=104.72s
+[2026-09-19 09:46:41] FIN rerun_pso_fixed

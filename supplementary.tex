@@ -1,0 +1,226 @@
+% Material suplementario 
+\documentclass[10pt,journal,compsoc]{IEEEtran}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage[font=small,labelfont=bf,skip=3pt]{caption}
+
+\graphicspath{{../results/figures/}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\newcommand{\mgwo}{mGWO}
+\newcommand{\mgwoa}{mGWO-a}
+\newcommand{\acor}{ACO$_\mathbb{R}$}
+\newcommand{\rehap}{REHAP}
+
+\title{Supplementary Material\\\large Robust Tuning of a Backstepping Controller for a Two-DOF Lower-Limb Rehabilitation Robot}
+\author{J.~E.~Cervantes-Reyes\\\textit{Universidad Polit\'ecnica de Pachuca, Hidalgo, M\'exico}\\\texttt{cervantesreyesjesusedg16@gmail.com}}
+
+\begin{document}
+\maketitle
+\noindent This document contains everything moved out of the 10-page main body (\texttt{main\_10p.tex}) to satisfy its figure/table/equation caps; see \texttt{DECISIONS.md} for the full KEEP/MERGE/SUP/CUT rationale. All numbers are copied from the full manuscript (\texttt{main.tex}); none are new.
+
+\section{Eliminated and relocated figures}\label{sec:s1}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{articulo/fig_convergencia_nominal.pdf}
+\caption{Convergence on the nominal plant, 200 iterations (seed 1): best cost vs.\ NFE, log scale. (a) Full range. (b) Zoom from 10\% of budget: final differences below 1\% for population-based methods. Referenced from main text Sec.~VI-A.}
+\label{fig:s_nominal}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{articulo/fig_convergencia_multi.pdf}
+\caption{Convergence of the exploratory multi-plant cost $\bar J$ (average over five perturbed plants), 200 iterations, seed 1. (a) Full range. (b) Zoom: \mgwo{} reaches the lowest cost late, GWO/PSO end close together, \acor{} plateaus first at a higher cost with fewer evaluations. Referenced from main text Sec.~VI-C.}
+\label{fig:s_multiconv}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{articulo/fig_estancamiento_expl.pdf}
+\caption{Cost of reaching the plateau, exploratory multi-plant study (single seed). (a) Evaluations until best cost is within 1\% of final value. (b) Wall-clock time to the same event (noisy: up to 80\% variation for identical work).}
+\label{fig:s_stag}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{articulo/fig_robustez_tiempo.pdf}
+\caption{Exploratory study: median validation cost (20 unseen plants, log scale) vs.\ wall-clock time to reach the plateau. Colors: algorithm; markers: budget (20/50/100/200 iterations). All algorithms cluster at the same validation cost.}
+\label{fig:s_rob}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{articulo/fig_escenarios.pdf}
+\caption{Final cost per algorithm in scenarios S1--S4 (log scale). (a) S1: \rehap{}, 300 ev., 10 seeds. (b) S2: \rehap{}, 600 ev., 10 seeds. (c) S3: shifted Rastrigin, 2000 ev., 30 seeds. (d) S4: shifted Ackley, 2000 ev., 30 seeds. Second box in each panel is \mgwoa{}, added post hoc. Referenced from main text Sec.~VI-E.}
+\label{fig:s_scen}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{articulo/fig_ablacion.pdf}
+\caption{Ablation of \mgwo{} on \rehap{} (S5: 500 evaluations, 10 seeds): full algorithm, one-mechanism-removed variants, and canonical GWO. No variant differs significantly from the full algorithm; ``no recovery'' is identical to it because that mechanism never fired.}
+\label{fig:s_abl}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\columnwidth]{fig_bezier_validation.pdf}
+\caption{Nominal plant, cubic B\'ezier reference ($T=5$~s). (a,b) Desired vs.\ simulated positions, manual and median-\mgwo{} gains. (c) Tracking-error norm (log scale), three gain sets. (d) Armature voltages ($\pm24$~V limits).}
+\label{fig:s_bezier}
+\end{figure}
+
+\noindent The training-cost convergence curve for the final protocol (originally Fig.~10(a) of the full manuscript) is not reproduced here: its source file also contains the NFE-to-1\% panel already shown as main-text Fig.~3(c). Two further diagnostic figures from the full manuscript (single-seed stagnation-vs.-time scatter, and a duplicate of the digital-stability chatter plot at intermediate $T_s$ values) were cut outright rather than relocated, since their content is already covered by Table~\ref{tab:s_final_note} below and by the main-text Fig.~1.
+
+\section{Eliminated tables}\label{sec:s2}
+
+\begin{table}[h]
+\centering\small
+\caption{Nominal plant, seed 1: final cost $J$ ($\times10^{-6}$).}
+\label{tab:s_nominal}
+\begin{tabular}{rrrrr}
+\toprule
+Iterations & \mgwo{} & GWO & PSO & \acor{}\\
+\midrule
+20  & 5.050 & 4.264 & 4.408 & 15.554\\
+50  & 4.341 & 4.262 & 4.409 & 4.474\\
+100 & 4.274 & 4.261 & 4.266 & 4.337\\
+200 & 4.283 & 4.261 & 4.244 & 4.248\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Digital stability diagnosis: oscillation of the joint-2 error in $[8,10]$~s (GWO gains, 200 iterations, only $k_{22}$ and $T_s$ varied). Summarized in main text Sec.~VI-B.}
+\label{tab:s_chatter}
+\begin{tabular}{rrrr}
+\toprule
+$k_{22}$ & $T_s$ (s) & Peak-to-peak (rad) & Dominant freq.\ (Hz)\\
+\midrule
+50 & 0.01 & $3.6\times10^{-8}$ & 0.78\\
+200 & 0.01 & $1.2\times10^{-8}$ & 0.78\\
+700 & 0.01 & $3.4\times10^{-9}$ & 0.78\\
+902 & 0.01 & $5.1\times10^{-7}$ & 49.6 (Nyquist 50)\\
+1000 & 0.01 & $4.8\times10^{-3}$ & 11.7\\
+902 & 0.005 & $1.5\times10^{-9}$ & 0.78\\
+902 & 0.0025 & $8.1\times10^{-10}$ & 0.78\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Exploratory multi-plant tuning (seed 1): final $\bar J$, evaluations $NFE_{1\%}$ and wall-clock time $t_{1\%}$ (s) to within 1\%, and total time $t$ (s).}
+\label{tab:s_multi}
+\begin{tabular}{rl rrrr}
+\toprule
+Iter & Algorithm & $\bar J$ & $NFE_{1\%}$ & $t_{1\%}$ & $t$\\
+\midrule
+20  & \mgwo{} & 0.01599 & 220 & 59.8 & 107.2\\
+    & GWO     & 0.01577 & 100 & 44.8 & 193.1\\
+    & PSO     & 0.01949 & 320 & 150.0 & 190.3\\
+    & \acor{} & 0.03427 & 110 & 58.1 & 77.6\\
+\midrule
+50  & \mgwo{} & 0.01564 & 655 & 301.7 & 453.3\\
+    & GWO     & 0.01554 & 640 & 286.9 & 466.1\\
+    & PSO     & 0.01594 & 900 & 384.7 & 429.1\\
+    & \acor{} & 0.02511 & 275 & 111.1 & 120.6\\
+\midrule
+100 & \mgwo{} & 0.01492 & 1075 & 503.3 & 928.7\\
+    & GWO     & 0.01559 & 1500 & 443.7 & 602.1\\
+    & PSO     & 0.01593 & 1440 & 646.4 & 891.0\\
+    & \acor{} & 0.01710 & 385 & 179.6 & 249.5\\
+\midrule
+200 & \mgwo{} & 0.01476 & 3811 & 1666.1 & 1750.6\\
+    & GWO     & 0.01587 & 700 & 186.8 & 1050.7\\
+    & PSO     & 0.01589 & 3280 & 860.0 & 1048.4\\
+    & \acor{} & 0.01710 & 385 & 102.0 & 277.1\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Validation of exploratory multi-plant gains on 20 unseen plants: median, 90th percentile, worst case and mean of $J$.}
+\label{tab:s_val}
+\begin{tabular}{rl rrrr}
+\toprule
+Iter & Algorithm & Median & P90 & Worst & Mean\\
+\midrule
+20  & \mgwo{} & 0.0256 & 0.708 & 868.1 & 43.5\\
+    & GWO     & 0.0255 & 0.718 & 932.0 & 46.7\\
+    & PSO     & 0.0259 & 0.706 & 293.7 & 14.8\\
+    & \acor{} & 0.0379 & 0.672 & 119.0 & 6.1\\
+\midrule
+50  & \mgwo{} & 0.0255 & 0.708 & 1110.1 & 55.6\\
+    & GWO     & 0.0254 & 0.708 & 1087.2 & 54.5\\
+    & PSO     & 0.0256 & 0.708 & 902.2 & 45.2\\
+    & \acor{} & 0.0320 & 0.689 & 403.3 & 20.3\\
+\midrule
+100 & \mgwo{} & 0.0256 & 0.703 & 523.7 & 26.3\\
+    & GWO     & 0.0255 & 0.718 & 1003.7 & 50.3\\
+    & PSO     & 0.0256 & 0.698 & 938.6 & 47.1\\
+    & \acor{} & 0.0260 & 0.720 & 669.1 & 33.6\\
+\midrule
+200 & \mgwo{} & 0.0251 & 0.773 & 685.2 & 34.4\\
+    & GWO     & 0.0256 & 0.718 & 877.8 & 44.0\\
+    & PSO     & 0.0256 & 0.708 & 912.0 & 45.7\\
+    & \acor{} & 0.0260 & 0.720 & 669.1 & 33.6\\
+\midrule
+\multicolumn{2}{l}{Manual $[5,5,4,4]$} & 0.604 & 1.345 & 1.86 & 0.677\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Cost $J$ on the 20 unseen perturbed plants (training pulse pattern), quintic and B\'ezier references; Sat.\ is the mean \% of saturated steps on the B\'ezier.}
+\label{tab:s_bezier_pert}
+\input{../results/tables/tabla_bezier_perturbadas.tex}
+\end{table}
+
+\noindent\emph{Note (main-text Table~I panel (a)):} the digital-stability table (Table~\ref{tab:s_chatter} above) is summarized in the main body by one sentence rather than reproduced there, since main-text Fig.~1 already shows the phenomenon graphically.
+
+\section{Full derivations}\label{sec:s3}
+The mass-matrix entries $M_{11}$, $M_{12}=M_{21}$, $M_{22}$ are already given in main-text Sec.~III-A; they are not repeated here. The armature voltage command used by the backstepping law (obtained by inverting the motor equation and compensating the reflected inertia $J_m$, folded to one sentence in main-text Sec.~III-B) is
+\begin{equation}
+v_i=\frac{R_a}{K_a}\Bigl(J_{mi}\ddot q_{r,i}+\frac{K_aK_b}{R_a}\dot q_i+\tau_i\Bigr),\qquad \ddot q_r=\ddot q_d-K_1\dot e.
+\label{eq:s_bsv}
+\end{equation}
+The quintic reference is $q_{d,i}(t)=q_{i,0}+(q_{i,f}-q_{i,0})\,h(s)$, $h(s)=10s^3-15s^4+6s^5$, $s=t/T$ (main-text Sec.~III-A, cut to one sentence). The B\'ezier reference used for the trajectory-generalization check (main-text Discussion, Sec.~VII) is the cubic
+\begin{equation}
+q_d(t)=(1-s)^3P_0+3(1-s)^2sP_1+3(1-s)s^2P_2+s^3P_3,\ s=t/T,
+\label{eq:s_bezier}
+\end{equation}
+$T=5$~s, $P_0=q_0$, $P_3=q_f$, $P_1=P_0+0.3(P_3-P_0)$, $P_2=P_3-0.3(P_3-P_0)$.
+
+\section{Exploratory-stage narrative (Stages I--II, single seed)}\label{sec:s4}
+\paragraph{Nominal plant (Table~\ref{tab:s_nominal}, Fig.~\ref{fig:s_nominal}).} With 100--200 iterations all four optimizers reach $J\approx4.24$--$4.34\times10^{-6}$; the nominal problem has little power to discriminate optimizers because the controller contains the exact plant model.
+
+\paragraph{Multi-plant tuning and stagnation (Table~\ref{tab:s_multi}, Figs.~\ref{fig:s_multiconv}--\ref{fig:s_stag}).} \acor{} stagnates first (385 evaluations at 100 and 200 iterations, identical returned gains); GWO stagnates early at 200 iterations (700 evaluations, 17\% of budget); \mgwo{} and PSO keep improving until 95\% and 82\% of the run. Stagnation time is not intrinsic to an algorithm in GWO-type methods: it depends on the budget through the schedule of $a$. The 30-run paired study (main text Sec.~VI-D) does \emph{not} reproduce \acor{}'s early stagnation, and identifies PSO, not the others, as the slower method.
+
+\paragraph{Validation on 20 unseen plants (Table~\ref{tab:s_val}, Fig.~\ref{fig:s_rob}).} Medians of all sets with $\ge100$ iterations lie in $[0.0251,0.0260]$ (4\% spread, $\approx24\times$ below manual gains $[5,5,4,4]$). Tails are not reduced: P90 $\approx0.7$ for every optimized set, worst case 119--1110. Including five plants in the training cost (vs.\ a single plant) reduced the mean validation cost roughly threefold but did not remove the tail.
+
+\paragraph{Ablation S5 (Fig.~\ref{fig:s_abl}).} With 500 evaluations, no \mgwo{} variant differs significantly from the full algorithm or from GWO (medians: full 0.0404, no init 0.0401 ($p=0.85$), no mutation 0.0407 ($p=0.45$), no recovery 0.0404 ($p=1.0$), no local search 0.0395 ($p=0.24$), GWO 0.0398 ($p=0.35$)). ``No recovery'' is bit-identical to the full algorithm because that mechanism never fired in these runs (main text Sec.~VI-F).
+
+\paragraph{B\'ezier-trajectory check, full detail (Fig.~\ref{fig:s_bezier}, Table~\ref{tab:s_bezier_pert}).} Extends the summary of main-text Sec.~VII. Nominal plant: RMSE falls $\approx20\times$ (joint 1) and $\approx80\times$ (joint 2) vs.\ manual gains; no gain set saturates. Twenty unseen perturbed plants: median $J=0.569$ (manual) vs.\ $0.047$ (\mgwo{}) / $0.040$ (GWO), $12$--$14\times$ lower, but P90 is worse for the tuned sets ($1.9$ vs.\ $1.25$) and the worst case is $\approx550\times$ higher (1964 vs.\ 3.59, plant 2016). Decomposing $J$: in plants 2015/2018/2020 the tuned gains track far better (RMS sum $0.04$--$0.05$ vs.\ $0.61$--$0.89$~rad) but saturate 18--19\% of steps (penalty $1.8$--$1.9$, since $\lambda_{sat}=10$); in plant 2016 the commanded torque exceeds $\tau_{\max}$ by enough to add a penalty of $\approx1.96\times10^3$ (47.5\% saturation), while the manual gains saturate 30\% there and obtain $J=3.59$. The tail is therefore a saturation/torque-penalty effect, not divergence. \mgwo{} and GWO tuned gains agree within 10\% on 14/20 plants and differ by $1.7$--$1.9\times$ on four (paired Wilcoxon $p=0.135$, not significant, one run pair each).
+
+\section{Implementation details}\label{sec:s5}
+\textbf{Software/hardware.} MATLAB R2020a; Intel Core i5-12450HX (8 cores/12 threads, 2.4~GHz base), 7.7~GB RAM, Windows 11. Wall-clock times varied up to 80\% between runs of identical work (e.g.\ 107~s vs.\ 193~s for 400 evaluations), so NFE, not time, is the primary cost measure.
+
+\textbf{Seeds.} Uncertainty realizations for setting C: seeds 1001--1005. Validation plants: seeds 2001--2020. Final-protocol training plants: seed $3000+k$ for run $k=1,\dots,30$ (paired across algorithms). \mgwo{}/\mgwoa{} informed initialization (\texttt{cfg.seeds\_informed} in \texttt{config/config.m}, $[k_{11},k_{12},k_{21},k_{22}]$ per row): $[5,5,4,4]$ (manual tuning), $[25,25,20,20]$ ($5\times$ manual), $[50,50,40,40]$ ($10\times$ manual), $[10,200,5,150]$ (asymmetric, low $K_1$/high $K_2$), $[200,10,150,5]$ (asymmetric, reversed); $n_s=5$ of these seed the population, the rest is drawn uniformly.
+
+\textbf{Hyperparameters.} Identical to main-text Table~II for all experiments (Stages I--V); no per-scenario retuning was performed.
+
+\section{Sensitivity of cost weights and pulse pattern}\label{sec:s6}
+Not performed. $\lambda_\tau=1$ and $\lambda_{sat}=10$ were fixed after a single smoke test and their effect on the reported comparisons was not studied; the alternative pulse pattern used in validation ($A=0.02$~rad, $P=2.5$~s, $w=0.1$~s, $t_0=0.5$~s vs.\ the training pattern) is the only robustness check performed against the pulse-generation assumptions. Both are listed as future work in the main-text Conclusions.
+
+\end{document}

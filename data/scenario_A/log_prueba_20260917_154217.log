@@ -1,0 +1,14 @@
+[2026-09-17 15:42:17] INICIO run_scenario_A modo=prueba n_runs=3 NFE_max=2000
+[2026-09-17 15:45:16] mgwo seed=1 intento=1 OK J_best=4.27371e-06 nfe=2000/2000 t_cpu=179.23s
+[2026-09-17 15:47:28] mgwo seed=2 intento=1 OK J_best=4.37455e-06 nfe=2000/2000 t_cpu=131.48s
+[2026-09-17 15:49:55] mgwo seed=3 intento=1 OK J_best=4.35464e-06 nfe=2000/2000 t_cpu=146.58s
+[2026-09-17 15:52:02] gwo_canonical seed=1 intento=1 OK J_best=4.26103e-06 nfe=2000/2000 t_cpu=127.24s
+[2026-09-17 15:59:20] gwo_canonical seed=2 intento=1 OK J_best=4.24334e-06 nfe=2000/2000 t_cpu=438.05s
+[2026-09-17 16:02:21] gwo_canonical seed=3 intento=1 OK J_best=4.26372e-06 nfe=2000/2000 t_cpu=181.02s
+[2026-09-17 16:06:06] pso seed=1 intento=1 OK J_best=4.23869e-06 nfe=2000/2000 t_cpu=224.90s
+[2026-09-17 16:09:20] pso seed=2 intento=1 OK J_best=0.000116577 nfe=2000/2000 t_cpu=193.32s
+[2026-09-17 16:13:00] pso seed=3 intento=1 OK J_best=0.000231819 nfe=2000/2000 t_cpu=220.30s
+[2026-09-17 16:17:05] acor seed=1 intento=1 OK J_best=4.23856e-06 nfe=2000/2000 t_cpu=244.17s
+[2026-09-17 16:20:26] acor seed=2 intento=1 OK J_best=4.24086e-06 nfe=2000/2000 t_cpu=201.11s
+[2026-09-17 16:23:35] acor seed=3 intento=1 OK J_best=4.25185e-06 nfe=2000/2000 t_cpu=188.41s
+[2026-09-17 16:23:35] FIN run_scenario_A
