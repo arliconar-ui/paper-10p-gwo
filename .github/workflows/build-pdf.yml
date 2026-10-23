@@ -1,0 +1,42 @@
+name: Build and Release PDF
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX document
+        uses: dante-ev/latex-action@v0.2.0
+        with:
+          root_file: main_10p.tex
+          args: -pdf -interaction=nonstopmode -shell-escape
+
+      - name: Delete existing releases and tags
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Obtener todos los tags existentes de releases y eliminarlos
+          releases=$(gh release list --limit 100 --json tagName -q '.[].tagName')
+          for tag in $releases; do
+            echo "Eliminando release y tag anterior: $tag"
+            gh release delete "$tag" --yes --cleanup-tag || true
+          done
+
+      - name: Create latest release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          RELEASE_TAG="v$(date +'%Y%m%d%H%M%S')"
+          gh release create "$RELEASE_TAG" main_10p.pdf \
+            --title "Paper Build ($RELEASE_TAG)" \
+            --notes "Compilación automática más reciente de main_10p.pdf generada desde el commit ${{ github.sha }}."

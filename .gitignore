@@ -1,0 +1,35 @@
+# Binarios compilados principales
+main_10p.pdf
+supplementary.pdf
+
+# Archivos auxiliares de LaTeX
+*.aux
+*.bbl
+*.blg
+*.brf
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.snm
+*.synctex
+*.synctex.gz
+*.toc
+*.vrb
+*.run.xml
+*-blx.bib
+
+# Archivos de caché y temporales de editores
+.DS_Store
+Thumbs.db
+desktop.ini
+*.bak
+*.dvi
+*.ps
+*.xdv
