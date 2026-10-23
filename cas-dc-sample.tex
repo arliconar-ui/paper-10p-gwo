@@ -173,8 +173,13 @@ Motor armature voltages $v_i$ are computed by inverting~\eqref{eq:motor} while i
 \end{equation}
 Because $\Lambda(q)$ is similar to a symmetric positive definite matrix, its eigenvalues are real and strictly contained in $(0,1)$. Along the prescribed trajectory, numerical evaluation yields $\lambda(\Lambda(q))\in[0.061, 0.908]$. The slow direction decays at roughly $6\%$ of the rate nominal $K_2$ suggests, explaining why optimizers tend to drive $k_{22}$ to large values.
 
-\begin{proposition}[Nominal exponential stability, sufficient condition]\label{prop:stability}
-For the nominal, continuous-time, unsaturated error dynamics~\eqref{eq:errdyn}, define, for each $q$ along the reference trajectory, $\lambda_2(q):=\lambda_{\min}\bigl(\tfrac12(\Lambda(q)K_2+K_2\Lambda(q)^\top)\bigr)$, the minimum eigenvalue of the symmetric part of $\Lambda(q)K_2$. If $\lambda_{\min}(K_1)>\tfrac12$ and $\inf_q\lambda_2(q)>\tfrac12$ along the trajectory, the origin $(e,z)=0$ is exponentially stable.
+\begin{proposition}\label{prop:stability}
+\textbf{(Nominal exponential stability, sufficient condition).}
+For the nominal, continuous-time, unsaturated error dynamics~\eqref{eq:errdyn}, define, for each $q$ along the reference trajectory,
+\begin{equation}
+\lambda_2(q):=\lambda_{\min}\bigl(\tfrac12(\Lambda(q)K_2+K_2\Lambda(q)^\top)\bigr),
+\end{equation}
+as the minimum eigenvalue of the symmetric part of $\Lambda(q)K_2$. If $\lambda_{\min}(K_1)>\tfrac12$ and $\inf_q\lambda_2(q)>\tfrac12$ along the trajectory, the origin $(e,z)=0$ is exponentially stable.
 \end{proposition}
 \begin{proof}
 Consider the Lyapunov function candidate $V=\tfrac12\|e\|^2+\tfrac12\|z\|^2$. Taking the time derivative along trajectories of~\eqref{eq:errdyn} yields $\dot V=e^\top\dot e+z^\top\dot z=-e^\top K_1e+e^\top z-z^\top\Lambda K_2z$. Because quadratic forms depend solely on the symmetric part of their kernel matrix, $z^\top\Lambda K_2z\ge\lambda_2(q)\|z\|^2$ by the Rayleigh--Ritz theorem. Applying Cauchy--Schwarz and Young's inequality ($e^\top z\le\tfrac12\|e\|^2+\tfrac12\|z\|^2$),
