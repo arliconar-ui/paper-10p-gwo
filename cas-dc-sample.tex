@@ -25,8 +25,6 @@
 
 \begin{document}
 \let\WriteBookmarks\relax
-\def\floatpagepagefraction{1}
-\def\textpagefraction{.001}
 
 \shorttitle{Benchmarking Metaheuristic-Tuned Nonlinear Controllers: Equal-Budget Validation, Digital Limits, and Generalization}
 \shortauthors{J.~E.~Cervantes-Reyes et~al.}
@@ -99,7 +97,7 @@ The metaheuristics community has extensively critiqued metaphor-based algorithms
 
 Recent studies on metaheuristic-tuned nonlinear controllers for lower-limb exoskeletons \cite{faraj2023,zheng2026} and manipulators \cite{rezoug2022,azeez2023,dai2023} consistently tune and validate controllers on the nominal plant or on a single static uncertainty scenario, omitting equal-budget multi-algorithm comparisons. While scenario-based robust tuning has been explored for inverted pendulums \cite{zorlu2026}, it was restricted to a single PID family without multi-optimizer statistical benchmarking. Table~\ref{tab:sota} summarizes this critical gap in the recent literature.
 
-\begin{table*}[t]
+\begin{table*}
 \caption{Metaheuristic-tuned nonlinear controllers for manipulators/exoskeletons: validation and comparison practices in recent literature.}
 \label{tab:sota}
 \begin{tabularx}{\textwidth}{@{}l p{3.2cm} p{2.8cm} X X@{}}
@@ -144,7 +142,7 @@ Neglecting armature inductance (as electrical time constants are substantially f
 \end{equation}
 which represents the physical actuation limit of the test bench ($\tau_{\max}=40$~N\,m is the nominal structural limit).
 
-\begin{table*}[t]
+\begin{table*}
 \caption{Nominal parameters of the \rehap{} rehabilitation robot (SI units).}
 \label{tab:params}
 \begin{tabular*}{\tblwidth}{@{}LLLLLL@{}}
@@ -284,7 +282,7 @@ Crucially, mechanisms 2--4 consume additional function evaluations per iteration
 
 \paragraph{\acor{} \cite{socha2008}} Continuous Ant Colony Optimization maintaining an archive of $k=50$ solutions. In each iteration, $m=5$ ants construct solutions via Gaussian mixture sampling centered on ranked archive solutions with selection weights $w_l$ and coordinate deviations proportional to average inter-solution distances.
 
-\begin{table*}[t]
+\begin{table*}
 \caption{Hyperparameter configurations across all optimizers (strictly standardized).}
 \label{tab:hyper}
 \begin{tabular*}{\tblwidth}{@{}LL@{}}
@@ -307,7 +305,7 @@ Optimizing on the unperturbed nominal plant across 100--200 iterations leads all
 \subsection{Identification of the digital stability limit}\label{sec:chatter}
 Nominal tuning consistently pushes $k_{22}$ toward the upper bound ($k_{22}\approx900$). Fig.~\ref{fig:chatter} analyzes joint-2 tracking error as a function of $k_{22}$ and sampling step $T_s$. For $k_{22}\le700$, error remains perfectly smooth (peak-to-peak $<3.6\times10^{-8}$~rad). However, at $k_{22}\approx902$, high-frequency chatter erupts with a dominant spectral peak at exactly $49.6$~Hz---matching the Nyquist frequency of the $100$~Hz digital loop ($f_{Nyquist}=1/(2T_s)=50$~Hz). Halving the sampling period to $T_s=0.005$~s entirely eliminates this chatter, confirming that the instability is a zero-order-hold discretization artifact. At $k_{22}=1000$, the discrete loop becomes unstable. Thus, nominal optimization drives gains directly onto the digital stability boundary. To prevent discretization-induced instability, we enforce $ub(k_{22})=600$ in all subsequent protocols.
 
-\begin{figure}[t]
+\begin{figure}
 \centering
 \includegraphics[width=\columnwidth]{articulo/fig_chatter.pdf}
 \caption{Joint-2 tracking error in $[8,10]$~s under nominal plant simulation ($\mu$rad). (a) $T_s=0.01$~s: smooth tracking for $k_{22}\le700$, high-frequency chatter at $49.6$~Hz for $k_{22}\approx902$. (b) Halving $T_s$ to $0.005$~s suppresses the Nyquist oscillation, confirming a digital ZOH stability boundary.}
@@ -317,7 +315,7 @@ Nominal tuning consistently pushes $k_{22}$ toward the upper bound ($k_{22}\appr
 \subsection{Fragility of nominal gains under plant perturbations}\label{sec:fragility}
 When gain sets tuned exclusively on the nominal plant are validated across 20 unseen perturbed plants with disturbance pulses, performance collapses catastrophically: validation cost median spikes to $1.3\times10^2$--$6.4\times10^3$, worst-case cost exceeds $10^6$, and motor voltages saturate during $7$--$79\%$ of the trajectory. In stark contrast, gains tuned under perturbed plants achieve validation costs of $\approx0.026$ (four to five orders of magnitude superior). Fig.~\ref{fig:loop} illustrates this mechanism: overly aggressive nominal gains amplify disturbance pulses, triggering severe voltage saturation and high-frequency limit cycles.
 
-\begin{figure}[t]
+\begin{figure}
 \centering
 \includegraphics[width=\columnwidth]{articulo/fig_respuesta_lazo.pdf}
 \caption{Closed-loop response on an unseen perturbed plant for manual, nominal-tuned, and multi-plant-tuned gains. (a,b) Tracking errors (mrad); (c,d) Armature voltages ($\pm24$~V limits). Nominal gains chatter between saturation boundaries; multi-plant gains maintain smooth tracking within $\approx10$~mrad without saturation.}
@@ -327,7 +325,7 @@ When gain sets tuned exclusively on the nominal plant are validated across 20 un
 \subsection{Confirmatory protocol: 30 paired runs}\label{sec:final}
 Table~\ref{tab:final}(a) and Fig.~\ref{fig:finalval} present the results of the 30 paired runs under the final validation protocol ($NFE_{\max}=2000$).
 
-\begin{table*}[t]
+\begin{table*}
 \caption{(a) Final validation protocol (30 paired runs, $NFE_{\max}=2000$): median validation cost on 20 unseen plants under training ($J_{val}$) and alternative ($J_{val}^{alt}$) disturbance pulses, interquartile range (IQR), worst-case cost, and evaluations to $5\%$ and $1\%$ convergence plateaus. (b) Generalization check on a cubic B\'ezier trajectory ($T=5$~s) without re-tuning.}
 \label{tab:final}
 \begin{tabular*}{\tblwidth}{@{}LLLLLLL@{}}
@@ -356,7 +354,7 @@ GWO (run 19)       & $1.30{\times}10^{-4}$ & $9.01{\times}10^{-5}$ & 0.015 & 0.0
 \end{tabular*}
 \end{table*}
 
-\begin{figure}[t]
+\begin{figure}
 \centering
 \includegraphics[width=\columnwidth]{articulo/fig_final_validacion.pdf}\\[4pt]
 \includegraphics[width=\columnwidth]{articulo/fig_final_convergencia.pdf}
@@ -373,7 +371,7 @@ GWO (run 19)       & $1.30{\times}10^{-4}$ & $9.01{\times}10^{-5}$ & 0.015 & 0.0
 \subsection{Benchmark landscapes and mechanistic deconstruction}\label{sec:scen}\label{sec:mech}\label{sec:hyp}
 Table~\ref{tab:scen} details performance across synthetic landscapes (shifted Rastrigin and Ackley in $D=4$, with optima offset from the origin to eliminate center bias) and tight evaluation budgets ($300$ and $600$ NFE).
 
-\begin{table*}[t]
+\begin{table*}
 \caption{Additional scenarios: median final cost (Holm-adjusted $p$-values vs.\ \mgwo{} in parentheses; bold indicates $p<0.05$).}
 \label{tab:scen}
 \begin{tabular*}{\tblwidth}{@{}LLLLL@{}}
