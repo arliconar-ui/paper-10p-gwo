@@ -40,3 +40,4 @@ jobs:
           gh release create "$RELEASE_TAG" main_10p.pdf \
             --title "Paper Build ($RELEASE_TAG)" \
             --notes "Compilación automática más reciente de main_10p.pdf generada desde el commit ${{ github.sha }}."
+
