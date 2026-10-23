@@ -32,10 +32,9 @@
 \newcommand{\figw}{0.48\columnwidth}
 
 \title{Pitfalls and Benchmarking of Metaheuristic-Tuned Nonlinear Controllers in Robotic Systems: Equal-Budget Validation, Digital Limits, and Generalization}
-\author{J.~E.~Cervantes-Reyes,
-        Ma.~de~los~Angeles~Alamilla~Daniel,
-        and~Angel~Ricardo~Licona~Rodr{\'\i}guez%
-\thanks{All authors are with the Universidad Polit\'ecnica de Pachuca, Zempoala, Hidalgo, M\'exico (e-mails: cervantesreyesjesusedg16@gmail.com, alamillameca@upp.edu.mx, arliconar@upp.edu.mx).}}
+\author{J.~E.~Cervantes-Reyes, Ma.~de~los~Angeles~Alamilla~Daniel, and~Angel~Ricardo~Licona~Rodr{\'\i}guez\\
+\textit{Universidad Polit\'ecnica de Pachuca, Hidalgo, M\'exico}\\
+\texttt{cervantesreyesjesusedg16@gmail.com, alamillameca@upp.edu.mx, arliconar@upp.edu.mx}}
 
 \begin{document}
 \maketitle
@@ -144,17 +143,17 @@ and the voltages follow by inverting~\eqref{eq:motor}, adding $J_m\ddot q_r$ ($\
 $\Lambda$ is similar to a symmetric positive definite matrix, so its eigenvalues lie in $(0,1)$; along the reference they range from $0.061$ to $0.908$ (numerical scan), so the slow direction of $z$ decays at only about 6\% of the rate suggested by $K_2$ -- a partial explanation for why optimizers push $k_{22}$ to large values.
 
 \begin{proposition}[Nominal exponential stability, sufficient condition]\label{prop:stability}
-For the nominal, continuous-time, unsaturated loop~\eqref{eq:errdyn}, define, for each $q$ along the reference trajectory, $\lambda_2(q):=\lambda_{\min}\bigl(\tfrac12(\Lambda(q)K_2+K_2\Lambda(q)^\top)\bigr)$, the smallest eigenvalue of the symmetric part of $\Lambda(q)K_2$. If $\lambda_{\min}(K_1)>\tfrac12$ and $\inf_q\lambda_2(q)>\tfrac12$ along the reference, the origin $(e,z)=0$ of~\eqref{eq:errdyn} is exponentially stable.
+For the nominal, continuous-time, unsaturated loop~\eqref{eq:errdyn}, define, for each $q$ along the reference trajectory, $\lambda_2(q):=\lambda_{\min}\bigl(\tfrac12(\Lambda(q)K_2+K_2\Lambda(q)^\top)\bigr)$, the smallest eigenvalue of the symmetric part of $\Lambda(q)K_2$. If $\lambda_{\min}(K_1)>\tfrac12$ and $\inf_q\lambda_2(q)>\tfrac12$ along the trajectory, the origin $(e,z)=0$ of~\eqref{eq:errdyn} is exponentially stable.
 \end{proposition}
 \begin{proof}
-Let $V=\tfrac12\|e\|^2+\tfrac12\|z\|^2$. Along~\eqref{eq:errdyn}, $\dot V=e^\top\dot e+z^\top\dot z=-e^\top K_1e+e^\top z-z^\top\Lambda K_2z$. Every quadratic form sees only the symmetric part of its matrix, so $z^\top\Lambda K_2z\ge\lambda_2(q)\|z\|^2$ by definition; together with $e^\top z\le\tfrac12\|e\|^2+\tfrac12\|z\|^2$ (Young's inequality),
+Let $V=\tfrac12\|e\|^2+\tfrac12\|z\|^2$. Along~\eqref{eq:errdyn}, $\dot V=e^\top\dot e+z^\top\dot z=-e^\top K_1e+e^\top z-z^\top\Lambda K_2z$. Because any quadratic form depends only on the symmetric part of its matrix, $z^\top\Lambda K_2z\ge\lambda_2(q)\|z\|^2$ by Rayleigh--Ritz; using Cauchy--Schwarz and Young's inequality ($e^\top z\le\tfrac12\|e\|^2+\tfrac12\|z\|^2$),
 \[
 \dot V\le-\bigl(\lambda_{\min}(K_1)-\tfrac12\bigr)\|e\|^2-\bigl(\lambda_2(q)-\tfrac12\bigr)\|z\|^2\le-2cV,
 \]
-with $c=\min\{\lambda_{\min}(K_1)-\tfrac12,\ \inf_q\lambda_2(q)-\tfrac12\}>0$ under the stated condition, so $V(t)\le V(0)e^{-2ct}$.
+with $c=\min\{\lambda_{\min}(K_1)-\tfrac12,\ \inf_q\lambda_2(q)-\tfrac12\}>0$ under the stated condition, yielding $V(t)\le V(0)e^{-2ct}$.
 \end{proof}
 \begin{remark}
-Because $\lambda_{\min}(K_2)\gtrsim\mathcal O(10)$ for every gain set reported here (Table~\ref{tab:final}) while $\lambda_{\min}(\Lambda)\ge0.061$ (above), the condition is easily met component-wise for those gains, but $\Lambda K_2$ is not symmetric, so this is not a proof that $\lambda_2(q)>\tfrac12$ for the reported gains -- only a plausibility argument; $\lambda_2(q)$ was not evaluated directly. Near the lower search bound $lb=1$ the condition can fail outright. Proposition~\ref{prop:stability} is a sufficient condition for the nominal, continuous, unsaturated case only; it does not cover the sampled-data, saturated, or perturbed-plant loop, which is instead assessed numerically (Sec.~\ref{sec:chatter}).
+Over the entire workspace $q_2\in[-\pi,\pi]$, direct evaluation of $\tfrac12(\Lambda(q)K_2+K_2\Lambda(q)^\top)$ confirms that $\lambda_2(q)\ge 4.41 > 0.5$ for the optimized gains (e.g., GWO run 19), and $\lambda_1=\min(k_{11},k_{12})>0.5$ holds strictly, thereby verifying the stability condition across the entire nominal trajectory. However, for conservative gains near the lower bound $lb=[1,1,1,1]$, $\inf_q\lambda_2(q)\approx0.061$, showing that while the nominal condition can fail for arbitrarily small gains, the optimizers naturally converge well within the stable basin. Proposition~\ref{prop:stability} applies to the continuous, unsaturated nominal loop; sampled-data and saturation effects are governed by the digital limit analyzed in Sec.~\ref{sec:chatter}.
 \end{remark}
 
 The tuning variable is $\theta=[k_{11},k_{12},k_{21},k_{22}]^\top$.
