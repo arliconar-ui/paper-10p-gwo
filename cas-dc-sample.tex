@@ -102,7 +102,7 @@ Recent studies on metaheuristic-tuned nonlinear controllers for lower-limb exosk
 \begin{table*}[t]
 \caption{Metaheuristic-tuned nonlinear controllers for manipulators/exoskeletons: validation and comparison practices in recent literature.}
 \label{tab:sota}
-\begin{tabular*}{\tblwidth}{@{}LLLLL@{}}
+\begin{tabularx}{\textwidth}{@{}l p{3.2cm} p{2.8cm} X X@{}}
 \toprule
 Study & Application & Optimizer(s) & Train/validate on different plants & Equal-budget, multi-optimizer stats\\
 \midrule
@@ -114,7 +114,7 @@ Study & Application & Optimizer(s) & Train/validate on different plants & Equal-
 \cite{zorlu2026} & Cart-inverted pendulum & (FO)PID, scenario-tuned & Yes (uncertainty scenarios) & No (single optimizer family)\\
 This work & \rehap{} lower-limb rehab.\ robot & \mgwo{}, GWO, PSO, \acor{} & Yes (20 unseen perturbed plants) & Yes (paired, equal NFE, Friedman/Holm/$A_{12}$)\\
 \bottomrule
-\end{tabular*}
+\end{tabularx}
 \end{table*}
 
 \section{System Dynamics and Backstepping Control}\label{sec:model}
@@ -406,40 +406,9 @@ The authors declare that they have no known competing financial interests or per
 \section*{Data and Code Availability}
 The complete MATLAB simulation codebase, optimization routines, paired test data, and analysis scripts supporting this study are publicly available in our reproducible GitHub repository at: \url{https://github.com/UPP-Robotics/REHAP-Robust-Tuning}.
 
+\printcredits
+
 \bibliographystyle{cas-model2-names}
-\begin{thebibliography}{99}
-\bibitem{krstic1995} M.~Krsti\'c, I.~Kanellakopoulos, P.~V. Kokotovi\'c, Nonlinear and Adaptive Control Design, Wiley, New York, 1995.
-\bibitem{khalil2002} H.~K. Khalil, Nonlinear Systems, 3rd ed., Prentice Hall, Upper Saddle River, NJ, 2002.
-\bibitem{spong2006} M.~W. Spong, S.~Hutchinson, M.~Vidyasagar, Robot Modeling and Control, John Wiley \& Sons, Hoboken, NJ, 2006.
-\bibitem{franklin1998} G.~F. Franklin, J.~D. Powell, M.~L. Workman, Digital Control of Dynamic Systems, 3rd ed., Addison-Wesley, Menlo Park, CA, 1998.
-\bibitem{peng2022} H.~Peng, J.~Zhou, R.~Song, A triple-step controller with linear ADRC for a lower limb rehabilitation robot, Front. Neurorobotics 16 (2022) 1053360.
-\bibitem{ren2025} S.~Ren, et~al., Command filtered backstepping control with nonlinear disturbance observer for multi-posture lower limb rehabilitation robot, J. Vib. Control (2025). doi:10.1177/10775463251386492.
-\bibitem{azeez2023} M.~I. Azeez, et~al., Optimized sliding mode controller for a flexible-joint three-link manipulator, Sci. Rep. 13 (2023) 12518.
-\bibitem{dai2023} Y.~Dai, D.~Wang, F.~Shen, A robust optimal control by grey wolf optimizer for underwater vehicle-manipulator system, PLOS ONE 18 (2023) e0287405.
-\bibitem{faraj2023} M.~A. Faraj, B.~Maalej, N.~Derbel, O.~Naifar, Adaptive fractional-order super-twisting sliding mode controller for lower limb rehabilitation exoskeleton in constraint circumstances based on the grey wolf optimization algorithm, Math. Probl. Eng. 2023 (2023) 9641673.
-\bibitem{zheng2026} L.~Zheng, M.~Soleimani Amiri, R.~Ramli, N.~H. Mohamed, Adaptive sliding-mode controller with grey wolf optimization and interval type-2 fuzzy logic system for rehabilitation lower-limb exoskeletons, Biomimetics 11 (2026) 546.
-\bibitem{rezoug2022} A.~Rezoug, J.~Iqbal, M.~Tadjine, Extended grey wolf optimization--based adaptive fast nonsingular terminal sliding mode control of a robotic manipulator, Proc. Inst. Mech. Eng. Part I 236 (2022) 1738--1754.
-\bibitem{zorlu2026} H.~Zorlu, M.~T\"urktam, S.~Soylu, Scenario-based robust tuning and generalization analysis of PID and fractional-order PID controllers for a nonlinear cart-inverted pendulum under parametric and disturbance uncertainty, Appl. Sci. 16 (2026) 8633.
-\bibitem{mirjalili2014} S.~Mirjalili, S.~M. Mirjalili, A.~Lewis, Grey wolf optimizer, Adv. Eng. Softw. 69 (2014) 46--61.
-\bibitem{kennedy1995} J.~Kennedy, R.~Eberhart, Particle swarm optimization, in: Proc. IEEE ICNN, Perth, WA, Australia, 1995, pp. 1942--1948.
-\bibitem{shi1998} Y.~Shi, R.~Eberhart, A modified particle swarm optimizer, in: Proc. IEEE ICEC, Anchorage, AK, USA, 1998, pp. 69--73.
-\bibitem{clerc2002} M.~Clerc, J.~Kennedy, The particle swarm---explosion, stability, and convergence in a multidimensional complex space, IEEE Trans. Evol. Comput. 6 (2002) 58--73.
-\bibitem{helwig2013} S.~Helwig, J.~Branke, S.~Mostaghim, Experimental analysis of bound handling techniques in PSO, IEEE Trans. Evol. Comput. 17 (2013) 259--271.
-\bibitem{socha2008} K.~Socha, M.~Dorigo, Ant colony optimization for continuous domains, Eur. J. Oper. Res. 185 (2008) 1155--1173.
-\bibitem{dorigo1997} M.~Dorigo, L.~M. Gambardella, Ant colony system: a cooperative learning approach to the traveling salesman problem, IEEE Trans. Evol. Comput. 1 (1997) 53--66.
-\bibitem{crepinsek2013} M.~\v{C}repin\v{s}ek, S.-H. Liu, M.~Mernik, Exploration and exploitation in evolutionary algorithms: a survey, ACM Comput. Surv. 45 (2013) 35.
-\bibitem{blum2003} C.~Blum, A.~Roli, Metaheuristics in combinatorial optimization: overview and conceptual comparison, ACM Comput. Surv. 35 (2003) 268--308.
-\bibitem{neri2012} F.~Neri, C.~Cotta, Memetic algorithms and memetic computing optimization: a literature review, Swarm Evol. Comput. 2 (2012) 1--14.
-\bibitem{sorensen2015} K.~S\"orensen, Metaheuristics---the metaphor exposed, Int. Trans. Oper. Res. 22 (2015) 3--18.
-\bibitem{camacho2023} C.~L. Camacho-Villal\'on, M.~Dorigo, T.~St\"utzle, Exposing the grey wolf, moth-flame, whale, firefly, bat, and antlion algorithms, Int. Trans. Oper. Res. 30 (2023) 2945--2971.
-\bibitem{kudela2022} J.~K\r{u}dela, A critical problem in benchmarking and analysis of evolutionary computation methods, Nat. Mach. Intell. 4 (2022) 1238--1245.
-\bibitem{kononova2014} A.~V. Kononova, et~al., Structural bias in population-based algorithms, Inf. Sci. 298 (2015) 468--490.
-\bibitem{cervantes2025tesis} J.~E. Cervantes-Reyes, Sistema de rehabilitaci\'on para extremidades inferiores (REHAP): redise\~no mecatr\'onico, Master's thesis, Universidad Polit\'ecnica de Pachuca, Zempoala, Hidalgo, Mexico, 2025.
-\bibitem{cervantes2025congreso} J.~E. Cervantes-Reyes, et~al., Comparative analysis of nonlinear control strategies for a lower limb rehabilitation system, Int. J. Comb. Optim. Probl. Inform. 16 (2025) 36--45.
-\bibitem{wolpert1997} D.~H. Wolpert, W.~G. Macready, No free lunch theorems for optimization, IEEE Trans. Evol. Comput. 1 (1997) 67--82.
-\bibitem{derrac2011} J.~Derrac, S.~Garc\'ia, D.~Molina, F.~Herrera, A practical tutorial on the use of nonparametric statistical tests for comparing popular swarm and evolutionary computing algorithms, Swarm Evol. Comput. 1 (2011) 3--18.
-\bibitem{holm1979} S.~Holm, A simple sequentially rejective multiple test procedure, Scand. J. Stat. 6 (1979) 65--70.
-\bibitem{vargha2000} A.~Vargha, H.~D. Delaney, A critique and improvement of the CL common language effect size statistics of McGraw and Wong, J. Educ. Behav. Stat. 25 (2000) 101--132.
-\end{thebibliography}
+\bibliography{paper-refs}
 
 \end{document}
